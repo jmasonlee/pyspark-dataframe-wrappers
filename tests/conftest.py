@@ -9,9 +9,12 @@ In VSCode, Code Coverage is recorded in config.xml. Delete this file to reset re
 """
 
 from __future__ import annotations
+import os
+import sys
 
-from typing import List
-
+from _pytest.fixtures import FixtureRequest
+from pyspark import SparkConf
+from pyspark.sql import SparkSession
 import pytest
 from _pytest.nodes import Item
 
@@ -24,7 +27,20 @@ def pytest_collection_modifyitems(items: list[Item]):
             item.add_marker(pytest.mark.integration)
 
 
-@pytest.fixture
-def unit_test_mocks(monkeypatch: None):
-    """Include Mocks here to execute all commands offline and fast."""
-    pass
+@pytest.fixture(scope="session")
+def spark(request: FixtureRequest):
+    os.environ['PYSPARK_PYTHON'] = sys.executable
+    os.environ['PYSPARK_DRIVER_PYTHON'] = sys.executable
+
+    conf = (SparkConf().set("spark.default.parallelism", "1")
+        .setMaster("local")
+        .setAppName("sample_pyspark_testing_starter"))
+
+    spark = SparkSession \
+        .builder \
+        .config(conf=conf) \
+        .getOrCreate()
+
+    request.addfinalizer(lambda: spark.stop())
+    return spark
+
