@@ -21,7 +21,6 @@ classifiers = [
     "Programming Language :: Python :: 3.10"
 ]
 requires-python = ">=3.7"
-dynamic = ["version"]
 dependencies = [
     "pyspark>=3.0.0",
 ]
