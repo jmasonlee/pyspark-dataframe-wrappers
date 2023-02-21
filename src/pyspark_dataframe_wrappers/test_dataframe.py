@@ -33,7 +33,7 @@ class TestDataFrame:
         self.base_data = kwargs
         return self
 
-    def set_type_for_column(self, column: str, type: DataType.__class__) -> "TestDataFrame":
+    def set_type_for_column(self, column: str, type: DataType) -> "TestDataFrame":
         self.explicit_schema.add(column, type)
         return self
 
