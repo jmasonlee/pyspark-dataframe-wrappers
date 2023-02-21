@@ -1,9 +1,8 @@
-from typing import Optional
+from typing import List, Dict
 
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col
 from pyspark.sql.types import DataType, StructType
-
 
 
 class Field:
@@ -53,7 +52,7 @@ class TestDataFrame:
 
         return dataframe
 
-    def with_data(self, rows: list[dict]) -> "TestDataFrame":
+    def with_data(self, rows: List[Dict]) -> "TestDataFrame":
         self.data = rows
         return self
 
