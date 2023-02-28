@@ -27,7 +27,7 @@ jobs:
           python -m pip install --upgrade pip
           pip install -e .[test]
       - name: Set pytest envs
-        run: echo "src" >> $PYTHON_PATH
+        run: echo "::set-env name=PYTHONPATH::home/runner/work/pyspark-dataframe-wrappers"
       - name: ${{ matrix.tools }}
         run: ${{ matrix.tools }}
 
