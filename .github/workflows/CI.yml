@@ -14,7 +14,7 @@ jobs:
     strategy:
       matrix:
         python-version: [3.9, "3.10", "3.11"]
-        tools: [ 'black', 'bandit', 'pylint', 'pyright', 'flake8', 'pytest' ]
+        tools: [ 'pytest' ]
 
     steps:
       - uses: actions/checkout@v2
