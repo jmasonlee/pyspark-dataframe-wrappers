@@ -29,7 +29,7 @@ dependencies = [
 test = [
     "bandit[toml]",
     "black",
-    "check-manifest==0.48",
+    "check-manifest==0.49",
     "chispa",
     "flake8-bugbear",
     "flake8-docstrings",
