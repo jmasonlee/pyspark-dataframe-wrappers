@@ -13,10 +13,15 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
+        python-version: [3.9, "3.10", "3.11"]
         tools: [ 'black', 'bandit', 'pylint', 'pyright', 'flake8', 'pytest' ]
 
     steps:
       - uses: actions/checkout@v2
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v4
+        with:
+          python-version: ${{ matrix.python-version }}
       - name: ${{ matrix.tools }}
         uses: dciborow/pyaction@0.0.30
         with:
