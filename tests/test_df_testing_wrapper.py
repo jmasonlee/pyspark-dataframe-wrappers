@@ -1,8 +1,7 @@
 from chispa import assert_df_equality
 from pyspark.sql.functions import to_timestamp
 from pyspark.sql.types import IntegerType, StructType, StructField, StringType, LongType
-
-from src.pyspark_dataframe_wrappers.test_dataframe import TestDataFrame, create_empty_df
+from pyspark_dataframe_wrappers.test_dataframe import TestDataFrame, create_empty_df
 
 
 # Bug: createDataFrame returns a new dataframe without the base_data or schema of the parent dataframe
