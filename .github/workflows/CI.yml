@@ -8,6 +8,9 @@ on:
     types: [created]    
   workflow_dispatch:
 
+env:
+  PYTHON_PATH: home/runner/work/pyspark-dataframe-wrappers/src
+
 jobs:
   validation:
     runs-on: ubuntu-latest
@@ -26,8 +29,6 @@ jobs:
         run: |
           python -m pip install --upgrade pip
           pip install -e .[test]
-      - name: Set pytest envs
-        run: echo "::set-env name=PYTHONPATH::home/runner/work/pyspark-dataframe-wrappers"
       - name: ${{ matrix.tools }}
         run: ${{ matrix.tools }}
 
