@@ -24,8 +24,6 @@ jobs:
           python-version: ${{ matrix.python-version }}
       - name: ${{ matrix.tools }}
         run: ${{ matrix.tools }}
-        with:
-          args: ${{ matrix.args }}
 
   publish:
     uses: microsoft/action-python/.github/workflows/publish.yml@0.2.0
