@@ -23,9 +23,8 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
       - name: ${{ matrix.tools }}
-        uses: dciborow/pyaction@0.0.30
+        run: ${{ matrix.tools }}
         with:
-          ${{ matrix.tools }}: true
           args: ${{ matrix.args }}
 
   publish:
