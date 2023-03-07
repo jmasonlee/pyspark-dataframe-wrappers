@@ -8,7 +8,6 @@ authors = [
     {name="Jacqueline Bilston", email="jmasonlee@gmail.com"},
     {name="Balazs Reho", email="balazs.reho@gmail.com"},
     {name="Brian Berzins", email="brianberzins@gmail.com"},
-    {name = "Daniel Ciborowski", email = "dciborow@microsoft.com"},
 ]
 description = "Sample Python Project for creating a new Python Module"
 license = {text = "Apache-2.0"}
