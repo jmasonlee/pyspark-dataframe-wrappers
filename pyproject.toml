@@ -11,7 +11,7 @@ authors = [
 ]
 description = "Sample Python Project for creating a new Python Module"
 license = {text = "Apache-2.0"}
-version = "REPLACE_ME_DURING_CI"
+version = "0.0.0"
 readme = "README.md"
 classifiers = [
     "Intended Audience :: Developers",
