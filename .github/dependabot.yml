@@ -7,8 +7,9 @@ updates:
     time: "13:00"
   open-pull-requests-limit: 10
   assignees:
-  - dciborow
-  - mattchansky
+  - jmasonlee
+  - reho.balazs
+  - brianberzins
   allow:
   - dependency-type: direct
   - dependency-type: indirect
