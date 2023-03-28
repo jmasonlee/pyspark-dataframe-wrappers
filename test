@@ -1,0 +1,5 @@
+#!/bin/bash -ex
+
+python -m pip install --quiet --upgrade pip
+pip install --quiet --editable .[test]
+pytest tests
