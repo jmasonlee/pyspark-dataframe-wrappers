@@ -67,12 +67,12 @@ class TestDataFrame:
         return self.with_data(new_rows)
 
     def create_test_dataframe_from_table(self, table) -> "TestDataFrame":
-        table_df = self.df_from_string(table)
+        table_df = self._df_from_string(table)
 
         self.data = [row.asDict() for row in table_df.collect()]
         return self
 
-    def df_from_string(self, table) -> DataFrame:
+    def _df_from_string(self, table) -> DataFrame:
         rows = table.strip().split('\n')
         rdd = self.spark.sparkContext.parallelize(rows)
         return self.spark.read.options(delimiter='|',
