@@ -72,7 +72,7 @@ class TestDataFrame:
         self.data = [row.asDict() for row in table_df.collect()]
         return self
 
-    def df_from_string(self, table):
+    def df_from_string(self, table) -> DataFrame:
         rows = table.strip().split('\n')
         rdd = self.spark.sparkContext.parallelize(rows)
         return self.spark.read.options(delimiter='|',
