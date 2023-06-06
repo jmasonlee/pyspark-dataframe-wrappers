@@ -182,21 +182,21 @@ def test_dataframe_from_string(spark):
     expected_df = expected_df.withColumn("date", to_timestamp(expected_df.date))
     assert_df_equality(new_df, expected_df)
 
-@pytest.mark.skip()
+# @pytest.mark.skip()
 def test_nullable_columns_in_table(spark):
-    test_df = TestDataFrame(spark)._df_from_string("""
-                required | optional?
-                5        | foo
-                3        | 3/5 was alright
-                4        | 3
-            """)
+    test_df = TestDataFrame(spark).create_test_dataframe_from_table("""
+                required! | optional        
+                5         | foo             
+                3         | 3/5 was alright  
+                4         | 3                
+            """).create_spark_df()
     is_nullable = {field.name: field.nullable for field in test_df.schema.fields}
 
     expected = {
-        'required': True,
-        'optional': False
+        'required': False,
+        'optional': True
     }
-    assert expected == is_nullable
+    assert is_nullable == expected
 
 
 def test_can_create_an_empty_df_with_a_non_nullable_field(spark):

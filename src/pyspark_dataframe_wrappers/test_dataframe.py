@@ -1,8 +1,9 @@
 from typing import List, Dict
 
+import pyspark.shell
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col
-from pyspark.sql.types import DataType, StructType
+from pyspark.sql.types import DataType, StructType, StructField
 
 
 class Field:
@@ -50,6 +51,7 @@ class TestDataFrame:
             for column in self.explicit_schema.fields:
                 dataframe = dataframe.withColumn(column.name, col(column.name).cast(column.dataType))
 
+
         return dataframe
 
     def with_data(self, rows: List[Dict]) -> "TestDataFrame":
@@ -68,18 +70,26 @@ class TestDataFrame:
 
     def create_test_dataframe_from_table(self, table) -> "TestDataFrame":
         table_df = self._df_from_string(table)
-
+        self.explicit_schema = table_df.schema
         self.data = [row.asDict() for row in table_df.collect()]
+        print(self.explicit_schema)
         return self
 
     def _df_from_string(self, table) -> DataFrame:
         rows = table.strip().split('\n')
         rdd = self.spark.sparkContext.parallelize(rows)
-        return self.spark.read.options(delimiter='|',
-                                       header=True,
-                                       ignoreLeadingWhiteSpace=True,
-                                       ignoreTrailingWhiteSpace=True,
-                                       inferSchema=True).csv(rdd)
+        df = self.spark.read.options(delimiter='|', header=True, ignoreLeadingWhiteSpace=True,
+                                      ignoreTrailingWhiteSpace=True, inferSchema=True).csv(rdd)
+        # for struct_field in df.schema:
+        #     if struct_field.name in column_list:
+        #         struct_field.nullable = nullable
+        # df_mod = spark.createDataFrame(df.rdd, df.schema)
+
+        new_schema = df.schema
+        for struct_field in df.schema:  # type: StructField
+            if struct_field.name.endswith("!"):
+                new_schema[struct_field.name].nullable = False
+        return self.spark.createDataFrame(data=df.rdd, schema=new_schema)
 
 
 def create_empty_df(spark, schema=None):
