@@ -52,17 +52,17 @@ def test_multiple_columns(spark):
     .create_test_dataframe_from_table(
         """
          date                | stars 
-         2000-01-02 03:04:05 | 5     
-         2000-01-01 04:05:06 | 3     
-         2000-01-01 05:06:07 | 4     
+         2000-01-02 03:04:05 | 5.0     
+         2000-01-01 04:05:06 | 3.0     
+         2000-01-01 05:06:07 | 4.0    
         """
     ))
     #########
 
     expected_df = spark.createDataFrame([
-        {"user_id": "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-02 03:04:05", "stars": 5},
-        {"user_id": "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-01 04:05:06", "stars": 3},
-        {"user_id": "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-01 05:06:07", "stars": 4}
+        {"user_id": "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-02 03:04:05", "stars": 5.0},
+        {"user_id": "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-01 04:05:06", "stars": 3.0},
+        {"user_id": "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-01 05:06:07", "stars": 4.0}
     ])
     expected_df = expected_df.withColumn("date", to_timestamp(expected_df.date))
 
