@@ -37,9 +37,9 @@ class TestDataFrame:
         column_name = list(kwargs.keys())[0]
         column_values = kwargs[column_name]
 
-        new_rows = []
-        for row_from_column in column_values:
-            new_rows.append({column_name: row_from_column})
+        new_rows = [
+            {column_name: row_from_column} for row_from_column in column_values
+        ]
 
         self.data = new_rows
         return self
