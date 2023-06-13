@@ -1,18 +1,8 @@
 from typing import List, Dict
 
-import pyspark.shell
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col
 from pyspark.sql.types import DataType, StructType, StructField
-
-
-class Field:
-    def __init__(self, name: str, type: DataType):
-        self.name = name
-        self.type = type
-
-    def __eq__(self, other):
-        return type(other) == Field and self.name == other.name and type(self.type) == type(other.type)
 
 
 class TestDataFrame:
@@ -50,7 +40,6 @@ class TestDataFrame:
             for column in self.explicit_schema.fields:
                 dataframe = dataframe.withColumn(column.name, col(column.name).cast(column.dataType))
 
-
         return dataframe
 
     def with_data(self, rows: List[Dict]) -> "TestDataFrame":
@@ -78,7 +67,7 @@ class TestDataFrame:
         rows = table.strip().split('\n')
         rdd = self.spark.sparkContext.parallelize(rows)
         df = self.spark.read.options(delimiter='|', header=True, ignoreLeadingWhiteSpace=True,
-                                      ignoreTrailingWhiteSpace=True, inferSchema=True).csv(rdd)
+                                     ignoreTrailingWhiteSpace=True, inferSchema=True).csv(rdd)
         # for struct_field in df.schema:
         #     if struct_field.name in column_list:
         #         struct_field.nullable = nullable
