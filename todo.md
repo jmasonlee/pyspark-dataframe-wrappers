@@ -5,6 +5,7 @@
     * [ ] B what type should the string and normal test df return with
     * [ ] t tests are failing :-(
     * [ ] R Make one pattern work well. Delete all other pattern code (table)
+    * [ ] *R Refactor to smaller, more workable files*
 * [ ] Clean up test comments
 * [ ] Test file is getting too big
 * [ ] Allow specifying column type in table interface

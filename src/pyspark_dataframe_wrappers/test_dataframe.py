@@ -20,7 +20,6 @@ class TestDataFrame:
         self.spark = spark
         self.data = [{}]
         self.explicit_schema: StructType = StructType([])
-        self.fields = []
         self.base_data = {}
 
     def __enter__(self):
