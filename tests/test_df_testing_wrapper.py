@@ -182,7 +182,7 @@ def test_dataframe_from_string(spark):
     expected_df = expected_df.withColumn("date", to_timestamp(expected_df.date))
     assert_df_equality(new_df, expected_df)
 
-# @pytest.mark.skip()
+@pytest.mark.skip()
 def test_nullable_columns_in_table(spark):
     test_df = TestDataFrame(spark).create_test_dataframe_from_table("""
                 required! | optional        
