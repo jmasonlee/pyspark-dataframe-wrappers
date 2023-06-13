@@ -182,22 +182,6 @@ def test_dataframe_from_string(spark):
     expected_df = expected_df.withColumn("date", to_timestamp(expected_df.date))
     assert_df_equality(new_df, expected_df)
 
-@pytest.mark.skip()
-def test_nullable_columns_in_table(spark):
-    test_df = TestDataFrame(spark).create_test_dataframe_from_table("""
-                required! | optional        
-                5         | foo             
-                3         | 3/5 was alright  
-                4         | 3                
-            """).create_spark_df()
-    is_nullable = {field.name: field.nullable for field in test_df.schema.fields}
-
-    expected = {
-        'required': False,
-        'optional': True
-    }
-    assert is_nullable == expected
-
 
 def test_can_create_an_empty_df_with_a_non_nullable_field(spark):
     assert create_empty_df(spark, StructType([StructField('_', StringType(), False)])).count() == 0
@@ -205,25 +189,3 @@ def test_can_create_an_empty_df_with_a_non_nullable_field(spark):
 
 def test_can_create_an_empty_df_without_a_schema(spark):
     assert create_empty_df(spark).count() == 0
-
-# TestDataFrame(spark)
-#             .with_base_data(business_id=business_id)
-#             .with_explicit_schema()
-#             .with_nullable_data([{"?num_checkins": 2}])
-#             #.with_nullable_data([{"num_checkins": 2}, {"num_checkins": None}])
-#             .with_data([{"Optional(num_checkins)": 2, "column2": "foo"}])
-#             .with_data([{"num_checkins": 2}], nullable=["num_checkins"])
-#             .with_data([{"num_checkins": 2, "column2": "foo"}], nullable=["num_checkins"])
-#             .with_data([{"num_checkins": 2}], nullable=True)
-#             .with_data([{"num_checkins": 2?}])
-#             .with_data([{"num_checkins": Some(2)}])
-#             .with_data([{Optional("num_checkins"): 2}])
-#             .with_data([{Wrapper("num_checkins"): 2}])
-#             .with_data([{Nullable_String("num_checkins"): 2}])
-#             .with_data([{Column(name="num_checkins", nullable=True, type=pyspark.sql.types.NumericType): 2}])
-#             .with_data([
-#                 {Numeric(name="num_checkins", nullable=True): 2},
-#                 {Numeric(name="num_checkins", nullable=True): 5}
-#             ])
-#             .with_column(Numeric(name="num_checkins", nullable=True),[2,5])
-#             .create_spark_df()
