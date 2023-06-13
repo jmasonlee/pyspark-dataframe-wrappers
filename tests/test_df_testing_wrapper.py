@@ -109,17 +109,17 @@ def test_multiple_columns_with_same_name_but_different_types(spark):
     .create_test_dataframe_from_table(
         """
          user_id
-         1 
-         2 
-         3 
+         1.0 
+         2.0 
+         3.0 
         """
     ))
     #########
 
     expected_df = spark.createDataFrame([
-        {"user_id": 1, "business_id": "Crusty Crab"},
-        {"user_id": 2, "business_id": "Crusty Crab"},
-        {"user_id": 3, "business_id": "Crusty Crab"}
+        {"user_id": 1.0, "business_id": "Crusty Crab"},
+        {"user_id": 2.0, "business_id": "Crusty Crab"},
+        {"user_id": 3.0, "business_id": "Crusty Crab"}
     ])
     # expected_df = expected_df.withColumn("user_id", ...int)
     # expected_df = expected_df.with_expicit_schema("user_id", ...int)
