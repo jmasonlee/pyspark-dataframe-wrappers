@@ -26,7 +26,6 @@ class TestDataFrame:
 
     def create_spark_df(self) -> DataFrame:
         # | only in 3.9+ - What version does chispa support?
-        # What happens
         spark_data = [self.base_data | row for row in self.data]
         dataframe = self.spark.createDataFrame(data=spark_data)
 
