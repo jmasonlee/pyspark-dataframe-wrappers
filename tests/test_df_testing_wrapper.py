@@ -2,6 +2,8 @@ import pytest
 from chispa import assert_df_equality
 from pyspark.sql.functions import to_timestamp
 from pyspark.sql.types import IntegerType, StructType, StructField, StringType, LongType
+
+from pyspark_dataframe_wrappers import FixedColumn
 from pyspark_dataframe_wrappers.test_dataframe import TestDataFrame, create_empty_df
 
 
@@ -34,6 +36,14 @@ def test_create_test_dataframe(spark):
 
     assert_df_equality(test_df, df_actual, ignore_nullable=True, ignore_column_order=True, ignore_row_order=True)
 
+
+def test_with_base_data_takes_fixed_column(spark):
+    fixed_column = FixedColumn(name="id", type=IntegerType(), value=1)
+    test_data=TestDataFrame(spark).with_fixed_column(fixed_column).create_test_dataframe(
+        comment=["first", "second", "third"]
+    ).set_type_for_column("comment", StringType())
+    assert test_data.explicit_schema.fields == [("id", IntegerType()), ("comment", StringType())]
+    assert test_data.data == [{"id": 1, "comment":"first"},{"id": 1, "comment":"second"},{"id": 1, "comment":"third"}]
 
 def test_add_column_to_schema(spark):
     test_df = TestDataFrame(spark).set_type_for_column("name", StringType())

@@ -1,7 +1,15 @@
+from dataclasses import dataclass
+from typing import Any
+
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col
 from pyspark.sql.types import DataType, StructType, StructField
 
+@dataclass
+class FixedColumn():
+    name: str
+    type: DataType
+    value: Any
 
 class TestDataFrame:
     def __init__(self, spark):
@@ -66,6 +74,9 @@ class TestDataFrame:
             if struct_field.name.endswith("!"):
                 new_schema[struct_field.name].nullable = False
         return self.spark.createDataFrame(data=df.rdd, schema=new_schema)
+
+    def with_fixed_column(self, fixed_column: FixedColumn) -> "TestDataFrame":
+        return self
 
 
 def create_empty_df(spark, schema=None):
