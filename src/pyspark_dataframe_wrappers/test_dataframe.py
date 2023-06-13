@@ -1,5 +1,3 @@
-from typing import List, Dict
-
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col
 from pyspark.sql.types import DataType, StructType, StructField
@@ -35,10 +33,6 @@ class TestDataFrame:
 
         return dataframe
 
-    def with_data(self, rows: List[Dict]) -> "TestDataFrame":
-        self.data = rows
-        return self
-
     def create_test_dataframe(self, **kwargs) -> "TestDataFrame":
         column_name = list(kwargs.keys())[0]
         column_values = kwargs[column_name]
@@ -47,7 +41,8 @@ class TestDataFrame:
         for row_from_column in column_values:
             new_rows.append({column_name: row_from_column})
 
-        return self.with_data(new_rows)
+        self.data = new_rows
+        return self
 
     def create_test_dataframe_from_table(self, table) -> "TestDataFrame":
         table_df = self._df_from_string(table)
