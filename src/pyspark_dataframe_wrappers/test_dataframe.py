@@ -12,12 +12,6 @@ class TestDataFrame:
         self.explicit_schema: StructType = StructType([])
         self.base_data = {}
 
-    def __enter__(self):
-        return self.create_spark_df()
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        pass
-
     def with_base_data(self, **kwargs) -> "TestDataFrame":
         self.base_data = kwargs
         return self
