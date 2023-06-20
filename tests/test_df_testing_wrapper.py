@@ -49,14 +49,16 @@ def test_with_base_data_takes_fixed_column(spark):
 
 
 def test_base_data_is_applied_to_test_data_row(spark):
-    fixed_column = FixedColumn(name="id", type=IntegerType(), value=1)
+    fixed_column1 = FixedColumn(name="id", type=IntegerType(), value=1)
+    fixed_column2 = FixedColumn(name="apple_type", type=StringType(), value='Macintosh')
     test_data = (
         TestDataFrame(spark)
-        .with_fixed_column(fixed_column)
+        .with_fixed_column(fixed_column1)
+        .with_fixed_column(fixed_column2)
         .with_test_data(comment=['first'])
     )
     assert test_data.explicit_schema.fields == [StructField("id", IntegerType())]
-    assert test_data.data == [{'id': 1, 'comment': 'first'}]
+    assert test_data.data == [{'id': 1, 'comment': 'first', 'apple_type': 'Macintosh'}]
 
 
 def test_create_dataframe_accepts_no_arguments(spark):
