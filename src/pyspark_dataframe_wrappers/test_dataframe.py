@@ -43,7 +43,7 @@ class TestDataFrame:
 
         return dataframe
 
-    def create_test_dataframe(self, **kwargs) -> "TestDataFrame":
+    def with_test_data(self, **kwargs) -> "TestDataFrame":
         # Before we read in the custom test_df data we need to create a df with all the columns from the base data
         # As we iterate over the values of the important columns we should be adding default values to each row in the base data
         important_columns = list(kwargs.keys())

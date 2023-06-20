@@ -23,7 +23,7 @@ from pyspark_dataframe_wrappers.test_dataframe import TestDataFrame, create_empt
 def test_create_test_dataframe(spark):
     base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
     test_df = base_data \
-        .create_test_dataframe(date=[
+        .with_test_data(date=[
         "2000-01-02 03:04:05",
         "2000-01-01 04:05:06"
     ]) \
@@ -42,14 +42,14 @@ def test_with_base_data_takes_fixed_column(spark):
     test_data = (
         TestDataFrame(spark)
         .with_fixed_column(fixed_column)
-        .create_test_dataframe()
+        .with_test_data()
     )
     assert test_data.explicit_schema.fields == [StructField("id", IntegerType())]
     assert test_data.data == []
 
 
 def test_create_dataframe_accepts_no_arguments(spark):
-    test_data = TestDataFrame(spark).create_test_dataframe()
+    test_data = TestDataFrame(spark).with_test_data()
     assert test_data.data == []
     assert test_data.explicit_schema.fields == []
 
