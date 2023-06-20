@@ -53,8 +53,12 @@ class TestDataFrame:
             column_name = important_columns[0]
             column_values = kwargs[column_name]
 
+        base_column_name = self.explicit_schema.fields[0].name
         new_rows = [
-            {column_name: row_from_column} for row_from_column in column_values
+            {
+                column_name: row_from_column,
+                base_column_name: self.base_data[base_column_name]
+            } for row_from_column in column_values
         ]
 
         self.data = new_rows

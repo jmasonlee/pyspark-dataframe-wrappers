@@ -14,3 +14,4 @@
 * [ ] E Make it easier to install a dev environment with an install script
 * [ ] D Make a quickstart doc
 * [ ] B Debugger is not working! 
+* [ ] F Change the method interface of `with_test_data` to accept multiple columns
