@@ -11,3 +11,6 @@
 * [ ] Test file is getting too big
 * [ ] Allow specifying column type in table interface
   * Liked :: to indicate type
+* [ ] E Make it easier to install a dev environment with an install script
+* [ ] D Make a quickstart doc
+* [ ] B Debugger is not working! 

@@ -39,11 +39,20 @@ def test_create_test_dataframe(spark):
 
 def test_with_base_data_takes_fixed_column(spark):
     fixed_column = FixedColumn(name="id", type=IntegerType(), value=1)
-    test_data=TestDataFrame(spark).with_fixed_column(fixed_column).create_test_dataframe(
-        comment=["first", "second", "third"]
-    ).set_type_for_column("comment", StringType())
-    assert test_data.explicit_schema.fields == [("id", IntegerType()), ("comment", StringType())]
-    assert test_data.data == [{"id": 1, "comment":"first"},{"id": 1, "comment":"second"},{"id": 1, "comment":"third"}]
+    test_data = (
+        TestDataFrame(spark)
+        .with_fixed_column(fixed_column)
+        .create_test_dataframe()
+    )
+    assert test_data.explicit_schema.fields == [StructField("id", IntegerType())]
+    assert test_data.data == []
+
+
+def test_create_dataframe_accepts_no_arguments(spark):
+    test_data = TestDataFrame(spark).create_test_dataframe()
+    assert test_data.data == []
+    assert test_data.explicit_schema.fields == []
+
 
 def test_add_column_to_schema(spark):
     test_df = TestDataFrame(spark).set_type_for_column("name", StringType())

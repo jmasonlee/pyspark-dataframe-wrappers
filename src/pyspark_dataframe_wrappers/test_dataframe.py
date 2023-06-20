@@ -5,11 +5,13 @@ from pyspark.sql import DataFrame
 from pyspark.sql.functions import col
 from pyspark.sql.types import DataType, StructType, StructField
 
+
 @dataclass
 class FixedColumn():
     name: str
     type: DataType
     value: Any
+
 
 class TestDataFrame:
     def __init__(self, spark):
@@ -42,8 +44,14 @@ class TestDataFrame:
         return dataframe
 
     def create_test_dataframe(self, **kwargs) -> "TestDataFrame":
-        column_name = list(kwargs.keys())[0]
-        column_values = kwargs[column_name]
+        # Before we read in the custom test_df data we need to create a df with all the columns from the base data
+        # As we iterate over the values of the important columns we should be adding default values to each row in the base data
+        important_columns = list(kwargs.keys())
+        column_name = []
+        column_values = []
+        if important_columns:
+            column_name = important_columns[0]
+            column_values = kwargs[column_name]
 
         new_rows = [
             {column_name: row_from_column} for row_from_column in column_values
@@ -76,6 +84,8 @@ class TestDataFrame:
         return self.spark.createDataFrame(data=df.rdd, schema=new_schema)
 
     def with_fixed_column(self, fixed_column: FixedColumn) -> "TestDataFrame":
+        self.explicit_schema.add(fixed_column.name, fixed_column.type)
+        self.base_data[fixed_column.name] = fixed_column.value
         return self
 
 
