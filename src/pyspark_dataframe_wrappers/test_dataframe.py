@@ -18,6 +18,7 @@ class TestDataFrame:
         self.spark = spark
         self.data = [{}]
         self.explicit_schema: StructType = StructType([])
+        self.base_schema: StructType=StructType([])
         self.base_data = {}
 
     def with_base_data(self, **kwargs) -> "TestDataFrame":
@@ -44,6 +45,7 @@ class TestDataFrame:
         return dataframe
 
     def with_test_data(self, **kwargs) -> "TestDataFrame":
+        print(kwargs)
         # Before we read in the custom test_df data we need to create a df with all the columns from the base data
         # As we iterate over the values of the important columns we should be adding default values to each row in the base data
         important_columns = list(kwargs.keys())
@@ -53,7 +55,10 @@ class TestDataFrame:
             column_name = important_columns[0]
             column_values = kwargs[column_name]
 
-        base_column_name = self.explicit_schema.fields[0].name
+        #if there is no explicit schema don't do this line
+        if self.explicit_schema.fields:
+            base_column_name = self.explicit_schema.fields[0].name
+
         new_rows = [
             {
                 column_name: row_from_column,

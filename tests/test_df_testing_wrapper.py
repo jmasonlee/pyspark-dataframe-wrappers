@@ -21,7 +21,10 @@ from pyspark_dataframe_wrappers.test_dataframe import TestDataFrame, create_empt
 
 
 def test_create_test_dataframe(spark):
+    #SEE THE MIRO BOARD FOR CONTEXT!!!
+    #arrange
     base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
+    #act
     test_df = base_data \
         .with_test_data(date=[
         "2000-01-02 03:04:05",
@@ -29,12 +32,12 @@ def test_create_test_dataframe(spark):
     ]) \
         .create_spark_df()
 
-    df_actual = spark.createDataFrame([
+    df_expected = spark.createDataFrame([
         {"user_id": "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-02 03:04:05"},
         {"user_id": "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-01 04:05:06"}
     ])
 
-    assert_df_equality(test_df, df_actual, ignore_nullable=True, ignore_column_order=True, ignore_row_order=True)
+    assert_df_equality(test_df, df_expected, ignore_nullable=True, ignore_column_order=True, ignore_row_order=True)
 
 
 def test_with_base_data_takes_fixed_column(spark):
