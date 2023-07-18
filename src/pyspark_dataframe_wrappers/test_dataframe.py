@@ -57,9 +57,7 @@ class TestDataFrame:
         else:
             pass
 
-        new_rows = self.combine_base_data_with_test_data(column_name, column_values)
-
-        self.data = new_rows
+        self.data = self.combine_base_data_with_test_data(column_name, column_values)
         return self
 
     def combine_base_data_with_test_data(self, column_name, column_values):
