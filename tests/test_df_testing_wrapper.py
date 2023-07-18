@@ -35,6 +35,23 @@ def test_combine_base_data_with_test_data(spark):
         {'user_id': "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-01 04:05:06"}
     ]
 
+def test_with_test_data_takes_multiple_columns(spark):
+    base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
+
+    test_df = base_data \
+        .with_test_data(
+        date=[
+            "2000-01-02 03:04:05",
+            "2000-01-01 04:05:06"
+        ],
+        comment=["first", "second"]
+    )
+
+    assert test_df.data == [
+        {'user_id': "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-02 03:04:05", "comment": "first"},
+        {'user_id': "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-01 04:05:06", "comment": "second"}
+    ]
+
 
 
 def test_with_base_data_takes_fixed_column(spark):
