@@ -45,18 +45,13 @@ class TestDataFrame:
         return dataframe
 
     def with_test_data(self, **kwargs) -> "TestDataFrame":
-        print(kwargs)
-        # Before we read in the custom test_df data we need to create a df with all the columns from the base data
-        # As we iterate over the values of the important columns we should be adding default values to each row in the base data
         important_columns = list(kwargs.keys())
         column_name = []
         column_values = []
         if important_columns:
             column_name = important_columns[0]
             column_values = kwargs[column_name]
-        # Data = [{}] column_name = "date" column_values = [ date1 date2 ]
 
-        #if there is no explicit schema don't do this line
         if self.explicit_schema.fields:
             base_column_name = self.explicit_schema.fields[0].name
         else:
@@ -69,16 +64,11 @@ class TestDataFrame:
 
     def combine_base_data_with_test_data(self, column_name, column_values):
         new_rows = []
-        # Data = [{}] column_name = "date" column_values = [ date1 date2 ] new_rows = []
-        # Start with the explicit base_data, replace or copy that and then add the keyword argument
-
         for row_from_column in column_values:
-            # Data = [{}] column_name = "date" column_values = [ date1 date2 ] new_rows = [] row_from_column = date1
             new_rows.append({
                 column_name: row_from_column,
                 **self.base_data
             })
-            # Data = [{}] column_name = "date" column_values = [ date1 date2 ] new_rows = [{"date": date1, 'user_id': "Scooby-Doo", "business_id": "Crusty Crab",}] row_from_column = date1
         return new_rows
 
     def create_test_dataframe_from_table(self, table) -> "TestDataFrame":
