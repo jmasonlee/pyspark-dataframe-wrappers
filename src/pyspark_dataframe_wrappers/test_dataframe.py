@@ -75,8 +75,9 @@ class TestDataFrame:
         for row_from_column in column_values:
             # Data = [{}] column_name = "date" column_values = [ date1 date2 ] new_rows = [] row_from_column = date1
             new_rows.append({
-                column_name: row_from_column
-            } | self.base_data)
+                column_name: row_from_column,
+                **self.base_data
+            })
             # Data = [{}] column_name = "date" column_values = [ date1 date2 ] new_rows = [{"date": date1, 'user_id': "Scooby-Doo", "business_id": "Crusty Crab",}] row_from_column = date1
         return new_rows
 
