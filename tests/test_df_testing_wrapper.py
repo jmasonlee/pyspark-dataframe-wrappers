@@ -21,10 +21,8 @@ from pyspark_dataframe_wrappers.test_dataframe import TestDataFrame, create_empt
 
 
 def test_combine_base_data_with_test_data(spark):
-    #SEE THE MIRO BOARD FOR CONTEXT!!!
-    #arrange
     base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
-    #act
+
     combined_data = base_data \
         .combine_base_data_with_test_data(
         column_name="date", column_values=[
