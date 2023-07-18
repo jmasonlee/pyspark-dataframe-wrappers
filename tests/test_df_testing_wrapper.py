@@ -20,7 +20,7 @@ from pyspark_dataframe_wrappers.test_dataframe import TestDataFrame, create_empt
 # category 3: data we do not want/need
 
 
-def test_create_test_dataframe(spark):
+def test_combine_base_data_with_test_data(spark):
     #SEE THE MIRO BOARD FOR CONTEXT!!!
     #arrange
     base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
