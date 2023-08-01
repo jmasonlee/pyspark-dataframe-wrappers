@@ -42,10 +42,16 @@ def test_convert_test_data_to_rows():
     expected = [{"name": "apple", "id": 1}, {"name": "banana", "id": 2}, {"name": "pear", "id": 3}]
     assert convert_test_data_to_rows(test_data) == expected
 
+def test_convert_data_row_mismatch():
+    test_data = {"name": ["apple", "banana", "pear"], "id": [1, 2]}
+
+    with pytest.raises(AssertionError) as e:
+        convert_test_data_to_rows(test_data)
+    assert "All rows in test data must be the same length" in str(e.value)
 
 def convert_test_data_to_rows(test_data: Dict) -> List[Dict]:
     length = len(list(test_data.values())[0])
-    assert all(len(v) == length for v in test_data.values())
+    assert all(len(v) == length for v in test_data.values()), "All rows in test data must be the same length"
 
     results = [{} for _ in range(length)]
     for index in range(len(results)):
