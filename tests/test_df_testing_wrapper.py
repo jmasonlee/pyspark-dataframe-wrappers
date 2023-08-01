@@ -1,3 +1,5 @@
+from typing import Dict, List
+
 import pytest
 from chispa import assert_df_equality
 from pyspark.sql.functions import to_timestamp
@@ -34,6 +36,23 @@ def test_combine_base_data_with_test_data(spark):
         {'user_id': "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-02 03:04:05"},
         {'user_id': "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-01 04:05:06"}
     ]
+
+def test_convert_test_data_to_rows():
+    test_data = {"name": ["apple", "banana", "pear"], "id": [1, 2, 3]}
+    expected = [{"name": "apple", "id": 1}, {"name": "banana", "id": 2}, {"name": "pear", "id": 3}]
+    assert convert_test_data_to_rows(test_data) == expected
+
+
+def convert_test_data_to_rows(test_data: Dict) -> List[Dict]:
+    length = len(list(test_data.values())[0])
+    assert all(len(v) == length for v in test_data.values())
+
+    results = [{} for _ in range(length)]
+    for index in range(len(results)):
+        for key in list(test_data.keys()):
+            results[index][key] = test_data[key][index]
+
+    return results
 
 def test_with_test_data_takes_multiple_columns(spark):
     base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
