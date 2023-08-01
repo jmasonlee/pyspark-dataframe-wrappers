@@ -1,11 +1,9 @@
-from typing import Dict, List
-
 import pytest
 from chispa import assert_df_equality
 from pyspark.sql.functions import to_timestamp
 from pyspark.sql.types import IntegerType, StructType, StructField, StringType, LongType
 
-from pyspark_dataframe_wrappers import FixedColumn
+from pyspark_dataframe_wrappers import FixedColumn, convert_test_data_to_rows
 from pyspark_dataframe_wrappers.test_dataframe import TestDataFrame, create_empty_df
 
 
@@ -49,16 +47,6 @@ def test_convert_data_row_mismatch():
         convert_test_data_to_rows(test_data)
     assert "All rows in test data must be the same length" in str(e.value)
 
-def convert_test_data_to_rows(test_data: Dict) -> List[Dict]:
-    length = len(list(test_data.values())[0])
-    assert all(len(v) == length for v in test_data.values()), "All rows in test data must be the same length"
-
-    results = [{} for _ in range(length)]
-    for index in range(len(results)):
-        for key in list(test_data.keys()):
-            results[index][key] = test_data[key][index]
-
-    return results
 
 def test_with_test_data_takes_multiple_columns(spark):
     base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")

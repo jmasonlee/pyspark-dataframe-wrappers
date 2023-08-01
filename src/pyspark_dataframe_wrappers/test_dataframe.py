@@ -1,5 +1,5 @@
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Dict, List
 
 from pyspark.sql import DataFrame
 from pyspark.sql.functions import col
@@ -101,3 +101,15 @@ class TestDataFrame:
 def create_empty_df(spark, schema=None):
     data = [{}] if schema is None else []
     return spark.createDataFrame(schema=schema, data=data).na.drop("all")
+
+
+def convert_test_data_to_rows(test_data: Dict) -> List[Dict]:
+    length = len(list(test_data.values())[0])
+    assert all(len(v) == length for v in test_data.values()), "All rows in test data must be the same length"
+
+    results = [{} for _ in range(length)]
+    for index in range(len(results)):
+        for key in list(test_data.keys()):
+            results[index][key] = test_data[key][index]
+
+    return results
