@@ -101,7 +101,7 @@ def test_base_data_is_applied_to_test_data_row(spark):
         TestDataFrame(spark)
         .with_fixed_column(fixed_column1)
         .with_fixed_column(fixed_column2)
-        .with_test_data(comment=['first'])
+        .with_new_test_data(comment=['first'])
     )
     assert test_data.explicit_schema.fields == [StructField("id", IntegerType()),
                                                 StructField("apple_type", StringType())]
