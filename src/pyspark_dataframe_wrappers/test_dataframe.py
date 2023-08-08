@@ -52,11 +52,6 @@ class TestDataFrame:
             column_name = important_columns[0]
             column_values = kwargs[column_name]
 
-        if self.explicit_schema.fields:
-            base_column_name = self.explicit_schema.fields[0].name
-        else:
-            pass
-
         self.data = self.combine_base_data_with_test_data(column_name, column_values)
         return self
 
