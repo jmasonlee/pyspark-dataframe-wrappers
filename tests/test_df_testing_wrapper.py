@@ -64,12 +64,11 @@ def test_convert_data_row_mismatch():
         convert_test_data_to_rows(test_data)
     assert "All rows in test data must be the same length" in str(e.value)
 
-@pytest.mark.skip()
 def test_with_test_data_takes_multiple_columns(spark):
     base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
 
     test_df = base_data \
-        .with_test_data(
+        .with_new_test_data(
         date=[
             "2000-01-02 03:04:05",
             "2000-01-01 04:05:06"
