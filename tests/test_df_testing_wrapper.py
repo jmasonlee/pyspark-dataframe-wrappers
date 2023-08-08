@@ -92,7 +92,7 @@ def test_with_base_data_takes_fixed_column(spark):
     test_data = (
         TestDataFrame(spark)
         .with_fixed_column(fixed_column)
-        .with_test_data()
+        .with_new_test_data()
     )
     assert test_data.explicit_schema.fields == [StructField("id", IntegerType())]
     assert test_data.data == []
