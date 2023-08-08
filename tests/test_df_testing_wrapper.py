@@ -72,7 +72,7 @@ def test_with_test_data_takes_multiple_columns(spark):
     base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
 
     test_df = base_data \
-        .with_new_test_data(
+        .with_test_data(
         date=[
             "2000-01-02 03:04:05",
             "2000-01-01 04:05:06"
@@ -92,7 +92,7 @@ def test_with_base_data_takes_fixed_column(spark):
     test_data = (
         TestDataFrame(spark)
         .with_fixed_column(fixed_column)
-        .with_new_test_data()
+        .with_test_data()
     )
     assert test_data.explicit_schema.fields == [StructField("id", IntegerType())]
     assert test_data.data == []
@@ -105,7 +105,7 @@ def test_base_data_is_applied_to_test_data_row(spark):
         TestDataFrame(spark)
         .with_fixed_column(fixed_column1)
         .with_fixed_column(fixed_column2)
-        .with_new_test_data(comment=['first'])
+        .with_test_data(comment=['first'])
     )
     assert test_data.explicit_schema.fields == [StructField("id", IntegerType()),
                                                 StructField("apple_type", StringType())]
@@ -113,7 +113,7 @@ def test_base_data_is_applied_to_test_data_row(spark):
 
 
 def test_create_dataframe_accepts_no_arguments(spark):
-    test_data = TestDataFrame(spark).with_new_test_data()
+    test_data = TestDataFrame(spark).with_test_data()
     assert test_data.data == []
     assert test_data.explicit_schema.fields == []
 
