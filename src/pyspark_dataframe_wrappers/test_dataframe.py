@@ -45,34 +45,20 @@ class TestDataFrame:
         return dataframe
 
     def with_test_data(self, **kwargs) -> "TestDataFrame":
-        rows = convert_test_data_to_rows(kwargs)
+        important_columns = list(kwargs.keys())
+        column_name = []
+        column_values = []
+        if important_columns:
+            column_name = important_columns[0]
+            column_values = kwargs[column_name]
 
+        if self.explicit_schema.fields:
+            base_column_name = self.explicit_schema.fields[0].name
+        else:
+            pass
 
-        # important_columns = list(kwargs.keys())
-        # column_name = []
-        # column_values = []
-        # if important_columns:
-        #     column_name = important_columns[0]
-        #     column_values = kwargs[column_name]
-        #
-        # if self.explicit_schema.fields:
-        #     base_column_name = self.explicit_schema.fields[0].name
-        # else:
-        #     pass
-
-        self.data = self.zz_combine_base_data_with_test_data(rows)
+        self.data = self.combine_base_data_with_test_data(column_name, column_values)
         return self
-
-    def zz_combine_base_data_with_test_data(self, rows):
-        new_rows = []
-        base_data = self.base_data if self.base_data else {}
-        for row in rows:
-            new_rows.append({
-                **row,
-                **base_data
-            })
-        return new_rows
-
 
     def combine_base_data_with_test_data(self, column_name, column_values):
         new_rows = []
