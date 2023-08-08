@@ -64,6 +64,15 @@ class TestDataFrame:
             })
         return new_rows
 
+    def combine_base_data_with_test_row_data(self, rows):
+        new_rows = []
+        for row in rows:
+            new_rows.append({
+                **row,
+                **self.base_data
+            })
+        return new_rows
+
     def create_test_dataframe_from_table(self, table) -> "TestDataFrame":
         table_df = self._df_from_string(table)
         self.explicit_schema = table_df.schema
@@ -91,7 +100,6 @@ class TestDataFrame:
         self.explicit_schema.add(fixed_column.name, fixed_column.type)
         self.base_data[fixed_column.name] = fixed_column.value
         return self
-
 
 def create_empty_df(spark, schema=None):
     data = [{}] if schema is None else []
