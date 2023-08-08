@@ -56,13 +56,6 @@ class TestDataFrame:
         return self
 
     def with_new_test_data(self, **kwargs) -> "TestDataFrame":
-        important_columns = list(kwargs.keys())
-        column_name = []
-        column_values = []
-        if important_columns:
-            column_name = important_columns[0]
-            column_values = kwargs[column_name]
-
         rows = convert_test_data_to_rows(kwargs)
         self.data = self.combine_base_data_with_test_row_data(rows)
         return self
