@@ -112,6 +112,8 @@ def create_empty_df(spark, schema=None):
 
 
 def convert_test_data_to_rows(test_data: Dict) -> List[Dict]:
+    if not test_data:
+        return []
     length = len(list(test_data.values())[0])
     assert all(len(v) == length for v in test_data.values()), "All rows in test data must be the same length"
 

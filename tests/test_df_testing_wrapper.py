@@ -64,6 +64,10 @@ def test_convert_data_row_mismatch():
         convert_test_data_to_rows(test_data)
     assert "All rows in test data must be the same length" in str(e.value)
 
+def test_convert_test_data_to_rows_with_empty_dict():
+    test_data = {}
+    assert convert_test_data_to_rows(test_data) == []
+
 def test_with_test_data_takes_multiple_columns(spark):
     base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
 
