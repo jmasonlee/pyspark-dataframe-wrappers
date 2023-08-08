@@ -113,7 +113,7 @@ def test_base_data_is_applied_to_test_data_row(spark):
 
 
 def test_create_dataframe_accepts_no_arguments(spark):
-    test_data = TestDataFrame(spark).with_test_data()
+    test_data = TestDataFrame(spark).with_new_test_data()
     assert test_data.data == []
     assert test_data.explicit_schema.fields == []
 
