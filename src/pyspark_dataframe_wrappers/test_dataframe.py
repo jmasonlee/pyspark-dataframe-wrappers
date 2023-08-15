@@ -49,15 +49,6 @@ class TestDataFrame:
         self.data = self.combine_base_data_with_test_row_data(rows)
         return self
 
-    def combine_base_data_with_test_data(self, column_name, column_values):
-        new_rows = []
-        for row_from_column in column_values:
-            new_rows.append({
-                column_name: row_from_column,
-                **self.base_data
-            })
-        return new_rows
-
     def combine_base_data_with_test_row_data(self, rows):
         new_rows = []
         for row in rows:

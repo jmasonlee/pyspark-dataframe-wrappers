@@ -20,22 +20,6 @@ from pyspark_dataframe_wrappers.test_dataframe import TestDataFrame, create_empt
 # category 3: data we do not want/need
 
 
-def test_combine_base_data_with_test_data(spark):
-    base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
-
-    combined_data = base_data \
-        .combine_base_data_with_test_data(
-        column_name="date", column_values=[
-            "2000-01-02 03:04:05",
-            "2000-01-01 04:05:06"
-        ])
-
-    assert combined_data == [
-        {'user_id': "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-02 03:04:05"},
-        {'user_id': "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-01 04:05:06"}
-    ]
-
-
 def test_combine_base_data_with_test_row_data(spark):
     base_data = TestDataFrame(spark).with_base_data(user_id="Scooby-Doo", business_id="Crusty Crab")
 

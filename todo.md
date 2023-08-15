@@ -3,9 +3,10 @@
     * [ X ] B  We are currently testing the wrong method
     * [ ] F have a function that generates the whole schema using 1) the explicit schema fields 2) the inferred data types
     * [ ] B what type should the string and normal test df return with
-    * [ ] t tests are failing :-(
+    * [ X ] t tests are failing :-(
     * [ ] R Make one pattern work well. Delete all other pattern code (table)
-    * [ ] *R Refactor to smaller, more workable files*
+    * [ ] R Refactor to smaller, more workable files
+    * [ ] R separate tests that test an individual unit from tests that are testing features
 * [ ] Clean up test comments
 * [ ] B Test Dataframe data should be immutable
 * [ ] Test file is getting too big
