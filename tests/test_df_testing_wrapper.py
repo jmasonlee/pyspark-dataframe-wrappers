@@ -69,8 +69,6 @@ def test_with_test_data_takes_multiple_columns(spark):
         {'user_id': "Scooby-Doo", "business_id": "Crusty Crab", "date": "2000-01-01 04:05:06", "comment": "second"}
     ]
 
-
-
 def test_with_base_data_takes_fixed_column(spark):
     fixed_column = FixedColumn(name="id", type=IntegerType(), value=1)
     test_data = (
