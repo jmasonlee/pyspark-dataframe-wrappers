@@ -16,3 +16,4 @@
 * [ ] D Make a quickstart doc
 * [ ] B Debugger is not working! 
 * [ ] F Change the method interface of `with_test_data` to accept multiple columns
+* [ ] **B Can't use with_test_data multiple times** (overwrites the previous calls)

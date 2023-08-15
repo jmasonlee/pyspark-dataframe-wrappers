@@ -47,3 +47,13 @@ def test_columns_with_3_are_fizz(spark):
         data=[{"apples":"sauce", "number": 3, "fizzbuzz": "fizz"}])
 
     assert_df_equality(output_df, expected_df, ignore_nullable=True)
+
+def test_columns_with_3_are_fizz_with_pyspark_dataframe_wrappers(spark):
+    initial_data = TestDataFrame(spark).with_base_data(apples="sauce").with_test_data(number=[3])
+    input_df = initial_data.create_spark_df()
+
+    output_df = apple(spark, input_df)
+
+    expected_df = initial_data.with_test_data(fizzbuzz=["fizz"]).create_spark_df()
+
+    assert_df_equality(output_df, expected_df, ignore_nullable=True)
